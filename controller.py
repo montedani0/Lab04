@@ -44,6 +44,47 @@ class SpellChecker:
             case _:
                 return None
 
+    def handleSpellCheck(self,e):
+        frase_scritta = self._view.txtIn.value
+        lingua_scelta = self._view.ddLanguage.value
+        modalita_scelta = self._view.ddModality.value
+
+        if frase_scritta == "":
+            self._view.txtOut.controls.clear()
+            self._view.txtOut.controls.append(ft.Text("Add a sentence"))
+            return
+
+        if lingua_scelta == "":
+            self._view.txtOut.controls.clear()
+            self._view.txtOut.controls.append(ft.Text("Select a language"))
+            return
+
+        if modalita_scelta == "":
+            self._view.txtOut.controls.clear()
+            self._view.txtOut.controls.append(ft.Text("Select a modality"))
+            return
+
+        parole,tempo = self.handleSentence(frase_scritta,lingua_scelta,modalita_scelta)
+
+        self._view.txtOut.controls.clear()
+        self._view.txtOut.controls.append(ft.Text("Sentence: " + frase_scritta))
+        self._view.txtOut.controls.append(ft.Text("Wrong word/s: " + parole))
+        self._view.txtOut.controls.append(ft.Text("Time: " + str(tempo)))
+
+        self._view.update()
+
+
+
+    def handleLanguageSelection(self,e):
+        lingua_scelta = self._view.ddLanguage.value
+        self._view.txtOut.controls.append(ft.Text("Selected Language: " + lingua_scelta))
+        self._view.update()
+
+    def handleModalitySelection(self,e):
+        modalita_scelta = self._view.ddModality.value
+        self._view.txtOut.controls.append(ft.Text("Selected Modality : " + modalita_scelta))
+        self._view.update()
+
 
     def printMenu(self):
         print("______________________________\n" +

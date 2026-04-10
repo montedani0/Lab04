@@ -27,8 +27,27 @@ class View(object):
         )
 
         # Add your stuff here
+        self.ddLanguage = ft.Dropdown(value="Choose Language",
+                                      options=[ft.dropdown.Option("italian"),
+                                               ft.dropdown.Option("english"),
+                                               ft.dropdown.Option("spanish")],
+                                      on_change=self.__controller.handleLanguageSelection,
+                                      label="Select language")
 
-        # self.page.add([])
+        self.txtIn = ft.TextField(label= "Add you sentence here", width=420
+                            )
+        self.btnSpell = ft.ElevatedButton(text="Spell Checker",on_click=self.__controller.handleSpellCheck)
+        self.ddModality = ft.Dropdown(value="Choose Modality",
+                                      options=[ft.dropdown.Option("Default"),
+                                               ft.dropdown.Option("Linear"),
+                                               ft.dropdown.Option("Dichotomic")],
+                                      on_change=self.__controller.handleModalitySelection,
+                                      label="Select Modality")
+
+        row2 = ft.Row(spacing=30, controls=[self.ddModality, self.txtIn, self.btnSpell],
+                                                alignment=ft.MainAxisAlignment.CENTER)
+        self.txtOut = ft.ListView(expand=1, spacing=10, padding=20, auto_scroll=True)
+        self.page.add(self.ddLanguage,row2,self.txtOut)
 
         self.page.update()
 
